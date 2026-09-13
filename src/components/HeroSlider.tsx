@@ -24,17 +24,26 @@ const slides = [
 const DURATION = 7000;
 
 function SplitLine({ text, lineDelay }: { text: string; lineDelay: number }) {
+  let offset = 0;
   return (
-    <span className="block overflow-hidden">
-      {text.split("").map((ch, i) => (
-        <span
-          key={`${ch}-${i}`}
-          className="hero-char inline-block"
-          style={{ animationDelay: `${lineDelay + i * 28}ms` }}
-        >
-          {ch === " " ? "\u00a0" : ch}
-        </span>
-      ))}
+    <span className="block">
+      {text.split(" ").map((word) => {
+        const start = offset;
+        offset += word.length + 1;
+        return (
+          <span key={`${word}-${start}`} className="mr-[0.28em] inline-block whitespace-nowrap last:mr-0">
+            {word.split("").map((ch, ci) => (
+              <span
+                key={`${ch}-${ci}`}
+                className="hero-char inline-block"
+                style={{ animationDelay: `${lineDelay + (start + ci) * 28}ms` }}
+              >
+                {ch}
+              </span>
+            ))}
+          </span>
+        );
+      })}
     </span>
   );
 }
@@ -86,7 +95,7 @@ export function HeroSlider() {
       <div className="absolute inset-0 bg-bg/55" />
 
       <div className="relative z-10 mx-auto flex min-h-svh max-w-7xl flex-col justify-center px-5 pt-24 pb-28 lg:px-16">
-        <h1 key={index} className="font-display max-w-4xl text-5xl leading-[0.95] tracking-[0.04em] text-ink uppercase md:text-7xl lg:text-8xl">
+        <h1 key={index} className="font-display w-full max-w-6xl text-[clamp(2.35rem,4.6vw,4.5rem)] leading-[0.95] tracking-[0.04em] text-ink uppercase">
           <span className="sr-only">{slide.lines.join(" ")}</span>
           <span aria-hidden>
             {slide.lines.map((line, li) => (
