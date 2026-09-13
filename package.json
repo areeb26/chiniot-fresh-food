@@ -1,12 +1,13 @@
 {
-  "name": "chiniot-site",
+  "name": "chiniot-fresh-food",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check": "node --experimental-strip-types --no-warnings scripts/check-contact.ts"
   },
   "dependencies": {
     "next": "16.3.5",
